@@ -1,2 +1,3 @@
 # Club Website
-The repository for the tiverton watrpolo website
+The repository for the tiverton watrpolo website.
+
