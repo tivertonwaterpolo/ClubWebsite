@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+      - main
+      - feature*
+
+pr:
+  - master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+- group: TWPC.Shared
+
+stages:
+- stage: Infrastructure
+  displayName: Infrastructure
+  jobs:
+  - job: 'Deployment'
+    steps:
+
+    - task: Pulumi@1
+      displayName: 'Review Infrastructure'
+      inputs:
+        azureSubscription: $(azure.service.principal)
+        command: "preview"
+        cwd: $(pulumi.working.directory)
+        stack: $(pulumi.stack.name)
+
+    - task: Pulumi@1
+      displayName: 'Create Infrastructure'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      inputs:
+        azureSubscription: $(azure.service.principal)
+        command: "up"
+        args: '--yes --skip-preview'
+        cwd: $(pulumi.working.directory)
+        stack: $(pulumi.stack.name)
