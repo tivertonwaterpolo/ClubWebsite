@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWPC.ClubWebsite.UI", "TWPC.ClubWebsite.UI\TWPC.ClubWebsite.UI.csproj", "{B9606878-3CE4-42D7-9C68-FDD31D9B05DF}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWPC.ClubWebsite.Resources", "TWPC.ClubWebsite.Resources\TWPC.ClubWebsite.Resources.csproj", "{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}"
 EndProject
 Global
@@ -31,6 +33,10 @@ Global
 		{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9606878-3CE4-42D7-9C68-FDD31D9B05DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9606878-3CE4-42D7-9C68-FDD31D9B05DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9606878-3CE4-42D7-9C68-FDD31D9B05DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9606878-3CE4-42D7-9C68-FDD31D9B05DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
