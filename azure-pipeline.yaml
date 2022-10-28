@@ -18,10 +18,8 @@ stages:
   displayName: 'Deploy Test'
   jobs:
   - job: 'Review Infrastructure'
-    displayName: 'Review Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
   - job: 'Deploy'
-    dsiplayName: 'Deploy Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       
 
@@ -29,8 +27,6 @@ stages:
   displayName: 'Deploy Production'
   jobs:
   - job: 'Review Infrastructure'
-    displayName: 'Review Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
   - job: 'Deploy'
-    dsiplayName: 'Deploy Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
