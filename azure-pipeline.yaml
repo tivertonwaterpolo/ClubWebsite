@@ -14,15 +14,23 @@ variables:
 - group: TWPC.Shared
 
 stages:
-- stage: Review
-  displayName: 'Review Infrastructure'
-  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+- stage: Test
+  displayName: 'Deploy Test'
   jobs:
-  - job: 'Review'
+  - job: 'Review Infrastructure'
+    displayName: 'Review Infrastructure'
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+  - job: 'Deploy'
+    dsiplayName: 'Deploy Infrastructure'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       
 
-- stage: Deploy
-  displayName: 'Deploy Infrastructure'
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+- stage: Prod
+  displayName: 'Deploy Production'
   jobs:
+  - job: 'Review Infrastructure'
+    displayName: 'Review Infrastructure'
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
   - job: 'Deploy'
+    dsiplayName: 'Deploy Infrastructure'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
