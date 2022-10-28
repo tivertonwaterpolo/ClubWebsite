@@ -5,6 +5,16 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWPC.ClubWebsite.Deployment", "TWPC.ClubWebsite.Deployment\TWPC.ClubWebsite.Deployment.csproj", "{F296CE7F-FC9E-45EA-98E1-F108FCA8262B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWPC.ClubWebsite.Resources", "TWPC.ClubWebsite.Resources\TWPC.ClubWebsite.Resources.csproj", "{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{E2C7CC6A-1633-4322-97CE-2311456DDE5E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		azure-pipeline.yaml = azure-pipeline.yaml
+		CODEOWNERS = CODEOWNERS
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWPC.ClubWebsite.Resources", "TWPC.ClubWebsite.Resources\TWPC.ClubWebsite.Resources.csproj", "{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}"
 EndProject
 Global
