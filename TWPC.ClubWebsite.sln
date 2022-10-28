@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWPC.ClubWebsite.Resources", "TWPC.ClubWebsite.Resources\TWPC.ClubWebsite.Resources.csproj", "{AB8DDC8C-F1F8-4C9B-91B2-3650F569B47D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
