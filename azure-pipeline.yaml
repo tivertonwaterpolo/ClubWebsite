@@ -19,14 +19,21 @@ stages:
   jobs:
   - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
   - job: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-      
 
+  - job: 'Publish_Website'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      
 - stage: Prod
   displayName: 'Deploy Production'
   jobs:
   - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
   - job: 'Deploy_Infrastructure'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  - job: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
