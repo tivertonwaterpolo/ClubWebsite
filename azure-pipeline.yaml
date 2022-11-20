@@ -14,15 +14,35 @@ variables:
 - group: TWPC.Shared
 
 stages:
-- stage: Review
-  displayName: 'Review Infrastructure'
-  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+- stage: Test
+  displayName: 'Deploy Test'
   jobs:
-  - job: 'Review'
-      
+  - job: 'Review_Infrastructure'
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    steps:
 
-- stage: Deploy
-  displayName: 'Deploy Infrastructure'
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    - task: Pulumi@1
+      displayName: 'Review Infrastructure'
+      inputs:
+        azureSubscription: $(azure.service.principal)
+        command: "preview"
+        cwd: $(pulumi.working.directory)
+        stack: $(pulumi.stack.name)
+
+  - job: 'Deploy_Infrastructure'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  - job: 'Publish_Website'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      
+- stage: Prod
+  displayName: 'Deploy Production'
   jobs:
-  - job: 'Deploy'
+  - job: 'Review_Infrastructure'
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  - job: 'Deploy_Infrastructure'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+  - job: 'Publish_Website'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
