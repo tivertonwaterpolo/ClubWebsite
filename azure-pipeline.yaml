@@ -24,16 +24,18 @@ stages:
 
   jobs:
 
-  - job: 'Review_Infrastructure'
+  - deployment: 'Review_Infrastructure'
+    environment: Dev
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
-    steps:
-    - task: Pulumi@1
-      displayName: 'Review Infrastructure'
-      inputs:
-        azureSubscription: $(azure.service.principal)
-        command: "preview"
-        cwd: $(pulumi.working.directory)
-        stack: $(pulumi.stack.name)
+    deploy:
+      steps:
+      - task: Pulumi@1
+        displayName: 'Review Infrastructure'
+        inputs:
+          azureSubscription: $(azure.service.principal)
+          command: "preview"
+          cwd: $(pulumi.working.directory)
+          stack: $(pulumi.stack.name)
 
   - job: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
