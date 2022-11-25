@@ -27,18 +27,18 @@ stages:
   - deployment: 'Dev_Deploy'
     environment: Dev
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
-    #strategy:
-    #  runOnce:
-    #    deploy:
-    #      steps:
-    #      - script: echo 'Pipeline running'
-    #      - task: Pulumi@1
-    #        displayName: 'Review Infrastructure'
-    #        inputs:
-    #          azureSubscription: $(azure.service.principal)
-    #          command: 'preview'
-    #          cwd: $(pulumi.working.directory)
-    #          stack: $(pulumi.stack.name)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Pipeline running'
+          #- task: Pulumi@1
+          #  displayName: 'Review Infrastructure'
+          #  inputs:
+          #    azureSubscription: $(azure.service.principal)
+          #    command: 'preview'
+          #    cwd: $(pulumi.working.directory)
+          #    stack: $(pulumi.stack.name)
 
   - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
