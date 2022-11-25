@@ -1,4 +1,6 @@
-﻿using TWPC.ClubWebsite.Resources.Services;
+﻿using Pulumi;
+using System;
+using TWPC.ClubWebsite.Resources.Services;
 
 namespace TWPC.ClubWebsite.Resources.Managers
 {
@@ -14,6 +16,9 @@ namespace TWPC.ClubWebsite.Resources.Managers
 
         public void CreateResources()
         {
+            var environment = Environment.GetEnvironmentVariable("twpc.environment");
+            Log.Info(environment);
+
             var resourceGroup = _resourceGroupService.NewResourceGroup("TWPC-ClubWebsite", "UK South");
         }
     }

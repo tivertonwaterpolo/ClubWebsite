@@ -18,6 +18,8 @@ stages:
   displayName: 'Deploy Dev'
   variables:
   - group: TWPC.Dev
+  - name: twpc.environment
+    value: $(azure.environment)
 
   jobs:
   - job: 'Review_Infrastructure'
@@ -51,7 +53,7 @@ stages:
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - stage: Prod
-  displayName: 'Deploy Production'
+  displayName: 'Deploy Prod'
   jobs:
   - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
