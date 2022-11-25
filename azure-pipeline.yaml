@@ -26,7 +26,7 @@ stages:
 
   - deployment: 'Dev_Deploy'
     environment: Dev
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     #strategy:
     #  runOnce:
     #    deploy:
@@ -41,7 +41,7 @@ stages:
     #          stack: $(pulumi.stack.name)
 
   - job: 'Review_Infrastructure'
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     steps:
       - task: Pulumi@1
         displayName: 'Review Infrastructure'
@@ -52,10 +52,10 @@ stages:
           stack: $(pulumi.stack.name)
 
   - job: 'Deploy_Infrastructure'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
   - job: 'Publish_Website'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
       
 - stage: Test
   displayName: 'Deploy Test'
@@ -68,10 +68,10 @@ stages:
   - deployment: 'Review_Infrastructure'
     displayName: 'Review infrastructure'
     environment: Test
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
 
   #- job: 'Review_Infrastructure'
-  #  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+  #  condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
   #  steps:
   #  - task: Pulumi@1
   #    displayName: 'Review Infrastructure'
@@ -82,10 +82,10 @@ stages:
   #      stack: $(pulumi.stack.name)
 
   - job: 'Deploy_Infrastructure'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
   - job: 'Publish_Website'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
 - stage: Prod
   displayName: 'Deploy Prod'
@@ -98,10 +98,10 @@ stages:
   - deployment: 'Review_Infrastructure'
     displayName: 'Review Infrastructure'
     environment: Prod
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
 
   #- job: 'Review_Infrastructure'
-  #  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+  #  condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
   #  steps:
   #  - task: Pulumi@1
   #    displayName: 'Review Infrastructure'
@@ -112,7 +112,7 @@ stages:
   #      stack: $(pulumi.stack.name)
 
   - job: 'Deploy_Infrastructure'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
   - job: 'Publish_Website'
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
