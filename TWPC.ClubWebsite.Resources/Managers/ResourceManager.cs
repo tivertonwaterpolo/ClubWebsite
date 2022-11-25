@@ -19,7 +19,8 @@ namespace TWPC.ClubWebsite.Resources.Managers
             var environment = Environment.GetEnvironmentVariable("twpc.environment");
             Log.Info(environment);
 
-            var resourceGroup = _resourceGroupService.NewResourceGroup("TWPC-ClubWebsite", "UK South");
+            var resourceGroupName = $"TWPC-ClubWebsite-{environment}";
+            var resourceGroup = _resourceGroupService.NewResourceGroup(resourceGroupName, "UK South");
         }
     }
 }
