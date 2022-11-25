@@ -24,8 +24,7 @@ stages:
 
   jobs:
 
-  - deployment: 'Review_Infrastructure'
-    environment: Dev
+  - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -36,10 +35,10 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - deployment: 'Deploy_Infrastructure'
+  - job: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - deployment: 'Publish_Website'
+  - job: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       
 - stage: Test
@@ -50,8 +49,7 @@ stages:
     value: $(azure.environment)
 
   jobs:
-  - deployment: 'Review_Infrastructure'
-    environment: Test
+  - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -62,10 +60,10 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - deployment: 'Deploy_Infrastructure'
+  - job: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - deployment: 'Publish_Website'
+  - job: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - stage: Prod
@@ -76,8 +74,7 @@ stages:
     value: $(azure.environment)
 
   jobs:
-  - deployment: 'Review_Infrastructure'
-    environment: Prod
+  - job: 'Review_Infrastructure'
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -88,8 +85,8 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - deployment: 'Deploy_Infrastructure'
+  - job: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - deployment: 'Publish_Website'
+  - job: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
