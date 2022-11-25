@@ -24,14 +24,14 @@ stages:
 
   jobs:
 
-  #- deployment: 'Review_Infrastructure'
-  #  environment: Dev
-  #  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
-  #  strategy:
-  #    runOnce:
-  #      deploy:
-  #        steps:
-  #        - script: echo 'Pipeline running'
+  - deployment: 'Review_Infrastructure'
+    environment: Dev
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Pipeline running'
   #        - task: Pulumi@1
   #          displayName: 'Review Infrastructure'
   #          inputs:
