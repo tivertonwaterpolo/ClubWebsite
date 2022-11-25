@@ -14,9 +14,9 @@ variables:
 - group: TWPC.Shared
 
 stages:
+
 - stage: Dev
   displayName: 'Deploy Dev'
-  environment: Dev
   variables:
   - group: TWPC.Dev
   - name: twpc.environment
@@ -24,7 +24,8 @@ stages:
 
   jobs:
 
-  - job: 'Review_Infrastructure'
+  - deployment: 'Review_Infrastructure'
+    environment: Dev
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -35,22 +36,22 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - job: 'Deploy_Infrastructure'
+  - deployment: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - job: 'Publish_Website'
+  - deployment: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       
 - stage: Test
   displayName: 'Deploy Test'
-  environment: Test
   variables:
   - group: TWPC.Test
   - name: twpc.environment
     value: $(azure.environment)
 
   jobs:
-  - job: 'Review_Infrastructure'
+  - deployment: 'Review_Infrastructure'
+    environment: Test
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -61,22 +62,22 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - job: 'Deploy_Infrastructure'
+  - deployment: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - job: 'Publish_Website'
+  - deployment: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - stage: Prod
   displayName: 'Deploy Prod'
-  environment: Prod
   variables:
   - group: TWPC.Test
   - name: twpc.environment
     value: $(azure.environment)
 
   jobs:
-  - job: 'Review_Infrastructure'
+  - deployment: 'Review_Infrastructure'
+    environment: Prod
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
     steps:
     - task: Pulumi@1
@@ -87,8 +88,8 @@ stages:
         cwd: $(pulumi.working.directory)
         stack: $(pulumi.stack.name)
 
-  - job: 'Deploy_Infrastructure'
+  - deployment: 'Deploy_Infrastructure'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
-  - job: 'Publish_Website'
+  - deployment: 'Publish_Website'
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
