@@ -23,7 +23,8 @@ stages:
     value: $(azure.environment)
 
   jobs:
-  - deployment: 'Deploy Dev'
+  - deployment: 'Deploy_Dev'
+    displayName: 'Deploy Development'
     environment: $twpc.environment
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
@@ -57,7 +58,8 @@ stages:
     value: $(azure.environment)
 
   jobs:
-  - deployment: 'Deploy Test'
+  - deployment: 'Deploy_Test'
+    displayName: 'Deploy Test'
     environment: $twpc.environment
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
@@ -91,7 +93,8 @@ stages:
     value: $(azure.environment)
 
   jobs:
-  - deployment: 'Deploy Prod'
+  - deployment: 'Deploy_Prod'
+    displayName: 'Deploy Production'
     environment: $twpc.environment
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
