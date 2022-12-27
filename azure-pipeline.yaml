@@ -25,7 +25,7 @@ stages:
   jobs:
   - deployment: 'Deploy_Dev'
     displayName: 'Deploy Development'
-    environment: 'Dev'
+    environment: $(twpc.environment)
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
@@ -60,7 +60,7 @@ stages:
   jobs:
   - deployment: 'Deploy_Test'
     displayName: 'Deploy Test'
-    environment: 'Test'
+    environment: $(twpc.environment)
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
@@ -95,7 +95,7 @@ stages:
   jobs:
   - deployment: 'Deploy_Prod'
     displayName: 'Deploy Production'
-    environment: 'Prod'
+    environment: $(twpc.environment)
     condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
