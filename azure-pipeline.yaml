@@ -88,8 +88,8 @@ stages:
 - stage: Prod
   displayName: 'Production'
   variables:
-  - group: TWPC.Test
-  - name: 'Test'
+  - group: TWPC.Prod
+  - name: twpc.environment
     value: $(azure.environment)
 
   jobs:
