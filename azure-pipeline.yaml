@@ -52,7 +52,7 @@ stages:
   # Depends on Deploy_Dev only Deploys Infrastrucure from Main
 - stage: Test
   displayName: 'Test'
-  dependsOn: 'Deploy_Dev'
+  dependsOn: Dev
   variables:
   - group: TWPC.Test
   - name: twpc.environment
@@ -88,7 +88,7 @@ stages:
   # Depends on Deploy_Test should only run main branch
 - stage: Prod
   displayName: 'Production'
-  dependsOn: 'Deploy_Test'
+  dependsOn: Test
   variables:
   - group: TWPC.Prod
   - name: twpc.environment
