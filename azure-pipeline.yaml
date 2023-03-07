@@ -46,6 +46,7 @@ stages:
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'up'
+                args: '--yes --skip-preview'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
       
@@ -82,6 +83,7 @@ stages:
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'up'
+                args: '--yes --skip-preview'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
 
@@ -110,5 +112,6 @@ stages:
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'up'
+                args: '--yes --skip-preview'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
