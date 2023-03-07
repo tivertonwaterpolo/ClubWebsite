@@ -15,6 +15,16 @@ variables:
 
 stages:
 
+- stage: Build
+  displayName: 'Build'
+
+jobs:
+- job: BuildWebsite
+  displayName: 'Build Website'
+
+
+
+
   # Should always run only Deploys Infrastrucure from Main
 - stage: Dev
   displayName: 'Development'
