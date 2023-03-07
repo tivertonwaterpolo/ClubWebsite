@@ -37,6 +37,12 @@ stages:
           projects: '**/*UI.csproj'
           arguments: '--output $(Build.ArtifactStagingDirectory)\Website'
 
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)\Website'
+          ArtifactName: 'TWPC_Website'
+
   # Depends on Build only Deploys Infrastrucure from Main
 - stage: Dev
   displayName: 'Development'
