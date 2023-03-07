@@ -18,9 +18,9 @@ stages:
 - stage: Build
   displayName: 'Build'
 
-jobs:
-- job: BuildWebsite
-  displayName: 'Build Website'
+  jobs:
+  - job: BuildWebsite
+    displayName: 'Build Website'
 
 
 
