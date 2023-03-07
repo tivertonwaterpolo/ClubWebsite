@@ -26,11 +26,16 @@ stages:
         displayName: 'Build'
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
+          projects: '**/*UI.csproj'
           arguments: '--output $(Build.BinariesDirectory)'
-  
 
-
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish'
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '**/*UI.csproj'
+          arguments: '--output $(Build.ArtifactStagingDirectory)\Website'
 
   # Depends on Build only Deploys Infrastrucure from Main
 - stage: Dev
