@@ -15,6 +15,7 @@ variables:
 
 stages:
 
+  # Should always run
 - stage: Dev
   displayName: 'Development'
   variables:
@@ -26,7 +27,6 @@ stages:
   - deployment: 'Deploy_Dev'
     displayName: 'Deploy Development'
     environment: 'Dev'
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
         deploy:
@@ -43,15 +43,16 @@ stages:
 
             - task: Pulumi@1
               displayName: 'Deploy Infrastructure'
-              condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'deploy'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
       
+  # Depends on Deploy_Dev only Deploys Infrastrucure from Main
 - stage: Test
   displayName: 'Test'
+  dependsOn: Deploy_Dev
   variables:
   - group: TWPC.Test
   - name: twpc.environment
@@ -61,7 +62,6 @@ stages:
   - deployment: 'Deploy_Test'
     displayName: 'Deploy Test'
     environment: 'Test'
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
         deploy:
@@ -85,8 +85,10 @@ stages:
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
 
+  # Depends on Deploy_Test should only run main branch
 - stage: Prod
   displayName: 'Production'
+  dependsOn: Deploy_Test
   variables:
   - group: TWPC.Prod
   - name: twpc.environment
@@ -96,7 +98,7 @@ stages:
   - deployment: 'Deploy_Prod'
     displayName: 'Deploy Production'
     environment: 'Prod'
-    condition: ne(variables['Build.SourceBranch'], 'refs/heads/main')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     strategy:
       runOnce:
         deploy:
@@ -104,16 +106,7 @@ stages:
             - checkout: self
 
             - task: Pulumi@1
-              displayName: 'Review Infrastructure'
-              inputs:
-                azureSubscription: $(azure.service.principal)
-                command: 'preview'
-                cwd: $(pulumi.working.directory)
-                stack: $(pulumi.stack.name)
-
-            - task: Pulumi@1
               displayName: 'Deploy Infrastructure'
-              condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'deploy'
