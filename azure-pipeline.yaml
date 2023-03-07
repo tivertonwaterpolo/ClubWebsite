@@ -15,7 +15,7 @@ variables:
 
 stages:
 
-  # Should always run
+  # Should always run only Deploys Infrastrucure from Main
 - stage: Dev
   displayName: 'Development'
   variables:
@@ -43,6 +43,7 @@ stages:
 
             - task: Pulumi@1
               displayName: 'Deploy Infrastructure'
+              condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
               inputs:
                 azureSubscription: $(azure.service.principal)
                 command: 'up'
