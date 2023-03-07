@@ -45,7 +45,7 @@ stages:
               displayName: 'Deploy Infrastructure'
               inputs:
                 azureSubscription: $(azure.service.principal)
-                command: 'deploy'
+                command: 'up'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
       
@@ -81,7 +81,7 @@ stages:
               condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
               inputs:
                 azureSubscription: $(azure.service.principal)
-                command: 'deploy'
+                command: 'up'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
 
@@ -109,6 +109,6 @@ stages:
               displayName: 'Deploy Infrastructure'
               inputs:
                 azureSubscription: $(azure.service.principal)
-                command: 'deploy'
+                command: 'up'
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
