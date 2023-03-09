@@ -15,9 +15,38 @@ variables:
 
 stages:
 
-  # Should always run only Deploys Infrastrucure from Main
+- stage: Build
+  displayName: 'Build'
+
+  jobs:
+  - job: BuildWebsite
+    displayName: 'Build Website'
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'Build'
+        inputs:
+          command: 'build'
+          projects: '**/*UI.csproj'
+          arguments: '--output $(Build.BinariesDirectory)'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish'
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '**/*UI.csproj'
+          arguments: '--output $(Build.ArtifactStagingDirectory)\Website'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)\Website'
+          ArtifactName: 'TWPC_Website'
+
+  # Depends on Build only Deploys Infrastrucure from Main
 - stage: Dev
   displayName: 'Development'
+  dependsOn: Build
   variables:
   - group: TWPC.Dev
   - name: twpc.environment
@@ -51,7 +80,7 @@ stages:
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
       
-  # Depends on Deploy_Dev only Deploys Infrastrucure from Main
+  # Depends on Dev only Deploys Infrastrucure from Main
 - stage: Test
   displayName: 'Test'
   dependsOn: Dev
@@ -88,7 +117,8 @@ stages:
                 cwd: $(pulumi.working.directory)
                 stack: $(pulumi.stack.name)
 
-  # Depends on Deploy_Test should only run main branch
+  
+  # Depends on Test should only run main branch
 - stage: Prod
   displayName: 'Production'
   dependsOn: Test
