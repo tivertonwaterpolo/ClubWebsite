@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System.Runtime.CompilerServices;
 using TWPC.ClubWebsite.UI;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
